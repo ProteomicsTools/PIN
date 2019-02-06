@@ -2,7 +2,7 @@
 
 
 #' @export
-import_openswath <- function(input_search_results) {
+import_openswath <- function(input_search_results, remove_prefixInFileName = FALSE) {
     
   message("Message: It starts reading raw OpenSWATH search results...")
   
@@ -11,6 +11,11 @@ import_openswath <- function(input_search_results) {
   names(raw)[1] <- "PeptideIon"
 
   raw$PeptideIon <- paste(sapply(strsplit(raw$PeptideIon, "_"), "[[", 2), "_", sapply(strsplit(raw$PeptideIon, "_"), "[[", 3), sep="")
+
+  #wenguang: in the search results from euler portal, the filename was in the format as "/scratch/71239421.tmpdir/xuep_J180621_SW_3.mzXML.gz". this will remove this unnecessary prefix...
+  if(remove_prefixInFileName == TRUE) {
+    raw$filename <- sapply(strsplit(raw$filename, "/"), "[[", 4)
+  }
 
   data <- raw[-which(grepl("DECOY", raw$ProteinName)), ]
 
