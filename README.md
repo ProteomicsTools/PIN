@@ -4,7 +4,7 @@
 
 ```sh
 $ library(devtools)
-$ install_github("shaowenguang/PIN")
+$ install_github("ProteomicsTools/PIN")
 ```
 
 ### Installation of release version from CRAN
